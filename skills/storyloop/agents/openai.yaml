@@ -1,0 +1,4 @@
+interface:
+  display_name: "StoryLoop"
+  short_description: "Use StoryLoop MCP safely and well"
+  default_prompt: "Use $storyloop to inspect StoryLoop and take the correct next action."
