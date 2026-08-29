@@ -4,7 +4,7 @@ Use this reference before the first mutation, after an MCP or skill update, or w
 
 ## Supported contract
 
-This skill version is `0.1.0`. It supports StoryLoop MCP contract versions from `1.0.0` inclusive to `2.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`.
+This skill version is `0.1.1`. It supports StoryLoop MCP contract versions from `1.0.0` inclusive to `2.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`.
 
 The machine-readable copy lives in `compatibility.json` beside `SKILL.md`.
 
@@ -14,10 +14,14 @@ Call `get_storyloop_capabilities` when the server exposes it. Compare:
 
 - `contractVersion` with the supported range;
 - `contextEnvelopeVersion` and `outcomeEnvelopeVersion` with this skill;
-- `preferredTools` and `compatibilityTools` with the tools available in the host;
+- the server's authoritative `preferredTools` and `compatibilityTools` with the tools available in
+  the host;
 - advertised lifecycle states and features with the requested mode.
 
 Use preferred tools when they exist. `get_story_context` and `claim_story` are compatibility tools for older clients; new delivery work uses `inspect_story` followed by `begin_work`.
+
+Do not keep a second complete tool or transition table in the skill. The server capability response
+is authoritative; this skill stores only its supported versions and required features.
 
 ## Fail safely
 

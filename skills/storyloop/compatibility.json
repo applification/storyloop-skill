@@ -1,31 +1,15 @@
 {
-  "skillVersion": "0.1.0",
+  "skillVersion": "0.1.1",
   "storyloopMcpContract": {
     "minimum": "1.0.0",
     "maximumExclusive": "2.0.0"
   },
   "contextEnvelopeVersions": ["3"],
   "outcomeEnvelopeVersions": ["2"],
-  "preferredTools": [
-    "get_storyloop_capabilities",
-    "list_work",
-    "list_story_maps",
-    "inspect_story_map",
-    "search_story_map",
-    "inspect_story",
-    "inspect_story_history",
-    "begin_work",
-    "report_progress",
-    "attach_pull_request",
-    "submit_outcome",
-    "release_claim",
-    "record_decision",
-    "list_planning_targets",
-    "request_planning_session",
-    "get_planning_session",
-    "propose_map_changes",
-    "submit_planning_session",
-    "render_planning_owner_review"
-  ],
-  "compatibilityTools": ["get_story_context", "claim_story", "put_planning_item"]
+  "requiredFeatures": [
+    "durable_work_lifecycle",
+    "structured_next_actions",
+    "owner_gated_map_planning",
+    "idempotent_mutations"
+  ]
 }

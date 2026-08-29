@@ -75,6 +75,16 @@ Given/When/Then is useful when it makes state transitions clearer. It is not man
 
 Split a story when its parts can deliver or fail independently, require different owner decisions, or need separate verification. Keep one story when splitting would hide an end-to-end outcome behind technical layers.
 
+Weak oversized story:
+
+> Add authentication, account recovery, administration, audit history, and billing controls.
+
+Stronger conversational slice:
+
+> Recover access after every registered passkey is lost.
+
+The stronger slice has one user outcome and can be discussed, delivered, and verified independently.
+
 Reuse context the user already supplied. Ask only for missing decisions that would materially change the proposal.
 
 ## Record confirmed decisions deliberately
