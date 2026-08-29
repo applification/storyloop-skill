@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Add an explicit strong/weak story-slicing example and confirmed-decision guidance.
+- Treat the server's runtime capability response as the authoritative tool and transition reference
+  instead of duplicating its tool lists in public compatibility metadata.
+
 ## 0.1.0
 
 - Add StoryLoop-specific routing for review, delivery, recovery, planning, story improvement, and

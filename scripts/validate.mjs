@@ -85,7 +85,7 @@ const skillVersion = /^\s*version:\s*"([^"]+)"$/m.exec(frontmatter)?.[1];
 check(skillName === "storyloop", "SKILL.md name must be storyloop");
 check(description.length >= 80 && description.length <= 1024, "Skill description is not useful");
 check(description.includes("Do not activate"), "Skill description must protect adjacent tasks");
-check(skillVersion === "0.1.0", "SKILL.md version must match this release");
+check(skillVersion === "0.1.1", "SKILL.md version must match this release");
 check(!skill.includes("TODO"), "SKILL.md contains a TODO placeholder");
 check(!skill.includes("[TODO:"), "SKILL.md contains scaffold text");
 
@@ -97,14 +97,31 @@ for (const match of skill.matchAll(/\]\(([^)]+)\)/g)) {
 }
 
 const compatibility = JSON.parse(await read("skills/storyloop/compatibility.json"));
+const packageManifest = JSON.parse(await read("package.json"));
+const changelog = await read("CHANGELOG.md");
+const readme = await read("README.md");
 check(compatibility.skillVersion === skillVersion, "Compatibility skill version is out of sync");
+check(packageManifest.version === skillVersion, "Package version is out of sync");
+check(changelog.includes(`## ${skillVersion}`), "Changelog is missing the current skill version");
+check(
+  readme.includes(`/tree/v${skillVersion}/skills/storyloop`),
+  "README pin example is out of sync with the current skill version",
+);
+check(
+  inRange(
+    "1.1.0",
+    compatibility.storyloopMcpContract.minimum,
+    compatibility.storyloopMcpContract.maximumExclusive,
+  ),
+  "Current MCP contract is outside the declared range",
+);
 check(
   inRange(
     "1.0.0",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
-  "Current MCP contract is outside the declared range",
+  "Older supported MCP contract is outside the declared range",
 );
 check(
   !inRange(
@@ -123,12 +140,16 @@ check(
   "Future incompatible MCP contract was accepted",
 );
 check(
-  new Set(compatibility.preferredTools).size === compatibility.preferredTools.length,
-  "Preferred tools contain duplicates",
+  new Set(compatibility.requiredFeatures).size === compatibility.requiredFeatures.length,
+  "Required features contain duplicates",
 );
 check(
-  new Set(compatibility.compatibilityTools).size === compatibility.compatibilityTools.length,
-  "Compatibility tools contain duplicates",
+  compatibility.requiredFeatures.includes("structured_next_actions"),
+  "Structured next actions must remain a required server feature",
+);
+check(
+  !("preferredTools" in compatibility) && !("compatibilityTools" in compatibility),
+  "Tool lists belong to the authoritative runtime capability response",
 );
 
 const openai = await read("skills/storyloop/agents/openai.yaml");
