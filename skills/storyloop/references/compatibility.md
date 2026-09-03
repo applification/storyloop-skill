@@ -4,7 +4,9 @@ Use this reference before the first mutation, after an MCP or skill update, or w
 
 ## Supported contract
 
-This skill version is `0.1.1`. It supports StoryLoop MCP contract versions from `1.0.0` inclusive to `2.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`.
+This skill version is `0.2.0`. It supports StoryLoop MCP contract versions from `2.0.0` inclusive to `3.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`.
+
+Contract 2.0 is a clean break. A 1.x server exposes the retired preliminary planning-approval flow and is not supported by this skill; pin skill `0.1.1` for those servers.
 
 The machine-readable copy lives in `compatibility.json` beside `SKILL.md`.
 

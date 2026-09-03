@@ -85,7 +85,7 @@ const skillVersion = /^\s*version:\s*"([^"]+)"$/m.exec(frontmatter)?.[1];
 check(skillName === "storyloop", "SKILL.md name must be storyloop");
 check(description.length >= 80 && description.length <= 1024, "Skill description is not useful");
 check(description.includes("Do not activate"), "Skill description must protect adjacent tasks");
-check(skillVersion === "0.1.1", "SKILL.md version must match this release");
+check(skillVersion === "0.2.0", "SKILL.md version must match this release");
 check(!skill.includes("TODO"), "SKILL.md contains a TODO placeholder");
 check(!skill.includes("[TODO:"), "SKILL.md contains scaffold text");
 
@@ -109,7 +109,7 @@ check(
 );
 check(
   inRange(
-    "1.1.0",
+    "2.0.0",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
@@ -117,23 +117,23 @@ check(
 );
 check(
   inRange(
-    "1.0.0",
+    "2.9.9",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
-  "Older supported MCP contract is outside the declared range",
+  "A later compatible MCP contract is outside the declared range",
 );
 check(
   !inRange(
-    "0.9.9",
+    "1.1.0",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
-  "Older incompatible MCP contract was accepted",
+  "Retired 1.x MCP contract was accepted",
 );
 check(
   !inRange(
-    "2.0.0",
+    "3.0.0",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
@@ -146,6 +146,14 @@ check(
 check(
   compatibility.requiredFeatures.includes("structured_next_actions"),
   "Structured next actions must remain a required server feature",
+);
+check(
+  compatibility.requiredFeatures.includes("owner_published_map_planning"),
+  "Owner-published planning must remain a required server feature",
+);
+check(
+  !compatibility.requiredFeatures.includes("owner_gated_map_planning"),
+  "The retired owner-gated planning feature must not be required",
 );
 check(
   !("preferredTools" in compatibility) && !("compatibilityTools" in compatibility),

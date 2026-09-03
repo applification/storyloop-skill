@@ -1,15 +1,15 @@
 {
-  "skillVersion": "0.1.1",
+  "skillVersion": "0.2.0",
   "storyloopMcpContract": {
-    "minimum": "1.0.0",
-    "maximumExclusive": "2.0.0"
+    "minimum": "2.0.0",
+    "maximumExclusive": "3.0.0"
   },
   "contextEnvelopeVersions": ["3"],
   "outcomeEnvelopeVersions": ["2"],
   "requiredFeatures": [
     "durable_work_lifecycle",
     "structured_next_actions",
-    "owner_gated_map_planning",
+    "owner_published_map_planning",
     "idempotent_mutations"
   ]
 }
