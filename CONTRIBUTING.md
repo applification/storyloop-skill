@@ -13,5 +13,13 @@ Before opening a change:
 5. Update compatibility metadata and the changelog when behaviour or supported contracts change.
 6. Run `npm test` and the skill-creator validator.
 
+## Releases
+
+Set the release version consistently in `package.json`, `skills/storyloop/SKILL.md`,
+`skills/storyloop/compatibility.json`, the README pin example, and `CHANGELOG.md`.
+After a pull request merges, the validation workflow publishes that version as a GitHub
+release if it does not already exist. A merge that keeps the current version does not publish
+another release.
+
 Do not copy files, issue text, URLs, logs, or Git history from the private StoryLoop product
 repository.
