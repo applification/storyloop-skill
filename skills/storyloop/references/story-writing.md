@@ -100,3 +100,28 @@ them.
 - Use `consequences` for important follow-on constraints or accepted tradeoffs.
 - Do not record an agent implementation preference, an assumption, an unresolved question, or a
   plausible interpretation as though the owner decided it.
+
+## Choose existing product labels
+
+When `get_storyloop_capabilities` advertises `product_labels`, inspect the exact map with
+`inspect_story_map` section `labels` and follow every cursor. This catalogue is shared by every
+map in the product. Read names, descriptions and retirement state before drafting stories.
+
+Select existing active label IDs from the story's intent and acceptance criteria. Reuse the
+owner's vocabulary; include several labels when each adds useful information. For example,
+reducing map render latency on phones may fit both the owner's performance and mobile labels.
+A typography change may fit UX but does not imply a performance label. Release names such as
+Now, Next and Later describe timing and are not evidence for a label.
+
+Include the chosen `labelIds` in story proposals so the owner can review them before publishing.
+If nothing fits, leave the story unlabeled. Do not invent IDs, create new catalogue entries,
+relabel existing backlog stories, or change releases without an explicit request. Label creation,
+renaming, colours, descriptions and retirement belong in the owner's product settings.
+
+For an existing-story update, omit `labelIds` to preserve assignments; use an empty array only
+when intentionally proposing removal of all labels. Retired labels may remain on stories already
+using them, but cannot be newly assigned. If a label changes after drafting, inspect the review
+conflict and revise the proposal before asking the owner to publish. Captured work and published
+proposal context retain the label names and colours from that moment.
+
+If the capability is absent, use the older story contract without label fields.
