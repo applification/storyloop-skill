@@ -1,6 +1,7 @@
 name: Validate
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: [main]
@@ -18,9 +19,19 @@ jobs:
       - name: Validate public skill package
         run: npm test
 
+  compatibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out the candidate skill
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Certify against production
+        env:
+          STORYLOOP_MCP_RESOURCE: ${{ vars.STORYLOOP_MCP_RESOURCE }}
+        run: npm run certify
   release:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: skill
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [skill, compatibility]
     concurrency:
       group: release
       cancel-in-progress: false

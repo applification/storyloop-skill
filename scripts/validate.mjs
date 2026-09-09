@@ -71,7 +71,7 @@ const requiredFiles = [
   "skills/storyloop/references/delivery.md",
   "skills/storyloop/references/recovery.md",
   "skills/storyloop/references/planning.md",
-  "skills/storyloop/references/compatibility.md"
+  "skills/storyloop/references/compatibility.md",
 ];
 
 for (const file of requiredFiles) check(await exists(file), `Missing required file: ${file}`);
@@ -85,7 +85,7 @@ const skillVersion = /^\s*version:\s*"([^"]+)"$/m.exec(frontmatter)?.[1];
 check(skillName === "storyloop", "SKILL.md name must be storyloop");
 check(description.length >= 80 && description.length <= 1024, "Skill description is not useful");
 check(description.includes("Do not activate"), "Skill description must protect adjacent tasks");
-check(skillVersion === "0.2.0", "SKILL.md version must match this release");
+check(skillVersion === "0.2.1", "SKILL.md version must match this release");
 check(!skill.includes("TODO"), "SKILL.md contains a TODO placeholder");
 check(!skill.includes("[TODO:"), "SKILL.md contains scaffold text");
 
@@ -93,13 +93,28 @@ for (const match of skill.matchAll(/\]\(([^)]+)\)/g)) {
   const target = match[1];
   if (/^(https?:|#)/.test(target)) continue;
   const absolute = path.resolve(skillRoot, target);
-  check(await exists(path.relative(repositoryRoot, absolute)), `Broken SKILL.md reference: ${target}`);
+  check(
+    await exists(path.relative(repositoryRoot, absolute)),
+    `Broken SKILL.md reference: ${target}`,
+  );
 }
 
 const compatibility = JSON.parse(await read("skills/storyloop/compatibility.json"));
 const packageManifest = JSON.parse(await read("package.json"));
 const changelog = await read("CHANGELOG.md");
 const readme = await read("README.md");
+check(
+  frontmatter.includes(
+    `storyloop-mcp-contract: ">=${compatibility.storyloopMcpContract.minimum} <${compatibility.storyloopMcpContract.maximumExclusive}"`,
+  ),
+  "SKILL.md contract range is out of sync",
+);
+check(
+  Array.isArray(compatibility.requiredTools) &&
+    compatibility.requiredTools.length > 0 &&
+    compatibility.requiredTools.every((name) => /^[a-z_]+$/.test(name)),
+  "Essential tools must be declared",
+);
 check(compatibility.skillVersion === skillVersion, "Compatibility skill version is out of sync");
 check(packageManifest.version === skillVersion, "Package version is out of sync");
 check(changelog.includes(`## ${skillVersion}`), "Changelog is missing the current skill version");
@@ -109,7 +124,7 @@ check(
 );
 check(
   inRange(
-    "2.0.0",
+    "1.3.0",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
@@ -117,7 +132,7 @@ check(
 );
 check(
   inRange(
-    "2.9.9",
+    "1.9.9",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
@@ -129,11 +144,11 @@ check(
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
-  "Retired 1.x MCP contract was accepted",
+  "Unsupported older MCP contract was accepted",
 );
 check(
   !inRange(
-    "3.0.0",
+    "2.0.0",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
@@ -148,7 +163,7 @@ check(
   "Structured next actions must remain a required server feature",
 );
 check(
-  compatibility.requiredFeatures.includes("owner_published_map_planning"),
+  compatibility.requiredFeatures.includes("agent_drafted_owner_published_planning"),
   "Owner-published planning must remain a required server feature",
 );
 check(
@@ -162,10 +177,16 @@ check(
 
 const openai = await read("skills/storyloop/agents/openai.yaml");
 const shortDescription = /short_description:\s*"([^"]+)"/.exec(openai)?.[1] ?? "";
-check(shortDescription.length >= 25 && shortDescription.length <= 64, "UI description is out of bounds");
+check(
+  shortDescription.length >= 25 && shortDescription.length <= 64,
+  "UI description is out of bounds",
+);
 check(openai.includes("$storyloop"), "Default prompt must name $storyloop");
 
-check(!(await exists("skills/storyloop/scripts")), "The distributable skill must not contain scripts");
+check(
+  !(await exists("skills/storyloop/scripts")),
+  "The distributable skill must not contain scripts",
+);
 
 const allowedExtensions = new Set(["", ".md", ".json", ".yaml", ".yml", ".mjs"]);
 const privatePatterns = [
@@ -174,7 +195,7 @@ const privatePatterns = [
   /github\.com\/applification\/storyloop(?:[./?#]|$)/i,
   /tmp\/pdfs/i,
   /\bgh[opsu]_[A-Za-z0-9_]+/,
-  /WORKOS_[A-Z_]+\s*=/
+  /WORKOS_[A-Z_]+\s*=/,
 ];
 
 for (const absolute of await walk(repositoryRoot)) {
