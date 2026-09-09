@@ -1,9 +1,10 @@
 {
   "name": "storyloop-skill-source",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate.mjs"
+    "test": "node scripts/validate.mjs && node --test scripts/compatibility.test.mjs",
+    "certify": "node scripts/certify-release.mjs"
   }
 }

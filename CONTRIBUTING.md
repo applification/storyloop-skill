@@ -17,6 +17,17 @@ Before opening a change:
 
 Set the release version consistently in `package.json`, `skills/storyloop/SKILL.md`,
 `skills/storyloop/compatibility.json`, the README pin example, and `CHANGELOG.md`.
+Require the `skill` and `compatibility` checks in main branch protection. Configure the non-secret
+repository variable `STORYLOOP_MCP_RESOURCE` with the production HTTPS MCP resource. Missing
+configuration or an unreachable server fails certification.
+
+Before merging a skill change, deploy the server that has verified the exact candidate skill
+contents. The server release advertises a SHA-256 digest covering every distributed skill file.
+Version ranges, envelope versions, required features and tools must also match in both directions.
+The immutable candidate source commit lets the server certify a skill before the public merge;
+keep that commit available. Any subsequent skill edit requires renewed server certification.
+Do not merge an uncertified candidate: default-branch installs are distribution too.
+
 After a pull request merges, the validation workflow publishes that version as a GitHub
 release if it does not already exist. A merge that keeps the current version does not publish
 another release.

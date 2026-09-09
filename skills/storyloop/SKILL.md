@@ -2,8 +2,8 @@
 name: storyloop
 description: Use StoryLoop MCP to inspect story maps, select or resume work, keep durable lifecycle state current, and draft owner-reviewed map improvements. Apply when a request names StoryLoop, supplies a StoryLoop story or session ID, or uses StoryLoop MCP tools. Do not activate for generic backlog writing, agile coaching, ticket systems, or repository work without StoryLoop.
 metadata:
-  version: "0.2.0"
-  storyloop-mcp-contract: ">=2.0.0 <3.0.0"
+  version: "0.2.1"
+  storyloop-mcp-contract: ">=1.3.0 <2.0.0"
 ---
 
 # StoryLoop

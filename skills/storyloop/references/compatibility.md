@@ -4,9 +4,9 @@ Use this reference before the first mutation, after an MCP or skill update, or w
 
 ## Supported contract
 
-This skill version is `0.2.0`. It supports StoryLoop MCP contract versions from `2.0.0` inclusive to `3.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`.
+This skill version is `0.2.1`. It supports StoryLoop MCP contract versions from `1.3.0` inclusive to `2.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`.
 
-Contract 2.0 is a clean break. A 1.x server exposes the retired preliminary planning-approval flow and is not supported by this skill; pin skill `0.1.1` for those servers.
+This corrects the unsupported contract-2.0 guidance published in skill `0.2.0`. Current planning uses `request_planning_session`, bounded limits, and technical expiry. Do not call `begin_planning_session` or assume an unlimited lifetime.
 
 The machine-readable copy lives in `compatibility.json` beside `SKILL.md`.
 
@@ -14,7 +14,7 @@ The machine-readable copy lives in `compatibility.json` beside `SKILL.md`.
 
 Call `get_storyloop_capabilities` when the server exposes it. Compare:
 
-- `contractVersion` with the supported range;
+- `contractVersion` with the supported range and this skill version with `compatibleSkillVersions`;
 - `contextEnvelopeVersion` and `outcomeEnvelopeVersion` with this skill;
 - the server's authoritative `preferredTools` and `compatibilityTools` with the tools available in
   the host;
@@ -23,7 +23,7 @@ Call `get_storyloop_capabilities` when the server exposes it. Compare:
 Use preferred tools when they exist. `get_story_context` and `claim_story` are compatibility tools for older clients; new delivery work uses `inspect_story` followed by `begin_work`.
 
 Do not keep a second complete tool or transition table in the skill. The server capability response
-is authoritative; this skill stores only its supported versions and required features.
+is authoritative; this skill stores its supported versions, required features, and the small set of tools essential to its workflows. Verify required tools against the host’s actual tool list too.
 
 ## Fail safely
 

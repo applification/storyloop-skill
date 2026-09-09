@@ -21,13 +21,14 @@ If a timeout or dropped connection leaves the result unknown:
 4. If it does not confirm the change and the transition is still valid, retry with the original key and identical intent.
 5. If state changed in another way, stop and reconcile.
 
-This applies to work keys, progress keys, completion keys, release keys, decision keys, planning begin keys, draft item keys, and owner action keys.
+This applies to work keys, progress keys, completion keys, release keys, decision keys, planning request keys, draft item keys, and owner action keys.
 
 ## Common stop conditions
 
 - **Completed or released session:** never reopen it. Reinspect the story and start a new eligible round if needed.
 - **Owner changed the story or release:** use the fresh live state. Do not restore the older version from chat or a local plan.
-- **Owner requested planning changes:** the session returns to private drafting with the owner's feedback and no submission digest. Fetch it again and revise before resubmitting.
+- **Owner requested planning changes:** fetch the session and follow its returned editable state and allowed actions before revising and resubmitting.
+- **Draft expired:** preserve useful proposal content, inspect current map state, and start a new bounded draft with a new request key. Do not reuse an expired session or claim its lifetime is unlimited.
 - **Planning permission was revoked:** stop drafting and report the blocked action. Revocation is immediate and cannot be worked around.
 - **Proposal changed or was superseded:** fetch it again before writing or rendering owner review.
 - **Missing capability or incompatible contract:** stay read-only and follow [compatibility](compatibility.md).

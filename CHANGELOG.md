@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1
+
+- Correct 0.2.0 guidance to match implemented MCP contract 1.3: bounded private drafts use
+  `request_planning_session`, `requestKey`, per-kind limits and technical expiry.
+- Require both sides of compatibility, envelope versions, features and essential tools.
+- Gate publication on the deployed production server certifying the exact skill contents.
+- Keep the 0.2.0 tag for history; its contract-2.0 guidance does not describe the current server.
+
 ## 0.2.0
 
 - Require StoryLoop MCP contract versions from 2.0.0 inclusive to 3.0.0 exclusive. Contract 2.0 is a
