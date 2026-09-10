@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+- Manage ADR proposals and the five lifecycle states through scoped conversational MCP tools.
+- Reuse explicit owner confirmation for the same concrete change; preserve immutable history and recover uncertain writes with stable keys.
+- Explain accepted-only current guidance, paginated history and per-member explicit activity acknowledgment.
+- Require MCP contract 1.4.0 and the ADR tools and features.
+
 ## 0.2.1
 
 - Correct 0.2.0 guidance to match implemented MCP contract 1.3: bounded private drafts use
