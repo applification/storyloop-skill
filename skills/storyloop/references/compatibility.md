@@ -4,9 +4,9 @@ Use this reference before the first mutation, after an MCP or skill update, or w
 
 ## Supported contract
 
-This skill version is `0.2.1`. It supports StoryLoop MCP contract versions from `1.3.0` inclusive to `2.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`.
+This skill version is `0.3.0`. It supports StoryLoop MCP contract versions from `1.4.0` inclusive to `2.0.0` exclusive, context envelope version `3`, and outcome envelope version `2`. Conversational ADR management requires the `adr_lifecycle` and `adr_change_notifications` features and the list, inspect, create and change decision tools declared in `compatibility.json`.
 
-This corrects the unsupported contract-2.0 guidance published in skill `0.2.0`. Current planning uses `request_planning_session`, bounded limits, and technical expiry. Do not call `begin_planning_session` or assume an unlimited lifetime.
+For a server still on MCP contract `1.3.x`, retain skill `0.2.1` until the server upgrade and release certification are complete. That release corrected the unsupported contract-2.0 guidance published in skill `0.2.0`. Current planning uses `request_planning_session`, bounded limits, and technical expiry. Do not call `begin_planning_session` or assume an unlimited lifetime.
 
 The machine-readable copy lives in `compatibility.json` beside `SKILL.md`.
 
