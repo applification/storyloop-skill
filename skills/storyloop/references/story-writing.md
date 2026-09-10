@@ -87,16 +87,8 @@ The stronger slice has one user outcome and can be discussed, delivered, and ver
 
 Reuse context the user already supplied. Ask only for missing decisions that would materially change the proposal.
 
-## Record confirmed decisions deliberately
+## Keep decisions distinct from story proposals
 
-Use `record_decision` only after the owner has explicitly settled a durable product or architectural
-choice. Reinspect the affected product or story first so the new record does not contradict or
-duplicate current context. Link the exact story and active session only when the decision belongs to
-them.
-
-- Reuse one stable `idempotencyKey` on retries.
-- Name the choice in the title, summarize why it arose in `context`, and put the settled choice in
-  `decision`.
-- Use `consequences` for important follow-on constraints or accepted tradeoffs.
-- Do not record an agent implementation preference, an assumption, an unresolved question, or a
-  plausible interpretation as though the owner decided it.
+Use [decisions](decisions.md) for the ADR lifecycle. A planning proposal does not approve a
+product decision, and marking ADR activity seen does not accept it. Reinspect current decisions
+before proposing work that depends on them.

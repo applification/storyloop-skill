@@ -25,7 +25,7 @@ npx skills add applification/storyloop-skill --skill storyloop --agent codex
 Pin version `0.2.1` by installing the tagged skill directory:
 
 ```sh
-npx skills add https://github.com/applification/storyloop-skill/tree/v0.2.1/skills/storyloop --agent codex
+npx skills add https://github.com/applification/storyloop-skill/tree/v0.3.0/skills/storyloop --agent codex
 ```
 
 Check installed skills with `npx skills list`. Update the current installation with

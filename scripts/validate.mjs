@@ -69,6 +69,7 @@ const requiredFiles = [
   "skills/storyloop/compatibility.json",
   "skills/storyloop/references/story-writing.md",
   "skills/storyloop/references/delivery.md",
+  "skills/storyloop/references/decisions.md",
   "skills/storyloop/references/recovery.md",
   "skills/storyloop/references/planning.md",
   "skills/storyloop/references/compatibility.md",
@@ -85,7 +86,7 @@ const skillVersion = /^\s*version:\s*"([^"]+)"$/m.exec(frontmatter)?.[1];
 check(skillName === "storyloop", "SKILL.md name must be storyloop");
 check(description.length >= 80 && description.length <= 1024, "Skill description is not useful");
 check(description.includes("Do not activate"), "Skill description must protect adjacent tasks");
-check(skillVersion === "0.2.1", "SKILL.md version must match this release");
+check(skillVersion === "0.3.0", "SKILL.md version must match this release");
 check(!skill.includes("TODO"), "SKILL.md contains a TODO placeholder");
 check(!skill.includes("[TODO:"), "SKILL.md contains scaffold text");
 
@@ -124,7 +125,7 @@ check(
 );
 check(
   inRange(
-    "1.3.0",
+    "1.4.0",
     compatibility.storyloopMcpContract.minimum,
     compatibility.storyloopMcpContract.maximumExclusive,
   ),
